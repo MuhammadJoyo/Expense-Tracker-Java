@@ -16,33 +16,55 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ArrayList<Expense> expenses = new ArrayList<>();
 
-        System.out.println("Enter number of expenses:");
-        int n = sc.nextInt();
-        sc.nextLine();
+        while (true) {
+            System.out.println("\n===== Expense Tracker =====");
+            System.out.println("1. Add Expense");
+            System.out.println("2. View Expenses");
+            System.out.println("3. Show Total");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
 
-        // Taking input
-        for (int i = 0; i < n; i++) {
-            System.out.println("\nEnter expense name:");
-            String name = sc.nextLine();
+            int choice = sc.nextInt();
+            sc.nextLine(); // clear buffer
 
-            System.out.println("Enter amount:");
-            double amount = sc.nextDouble();
-            sc.nextLine();
+            if (choice == 1) {
+                System.out.print("Enter expense name: ");
+                String name = sc.nextLine();
 
-            expenses.add(new Expense(name, amount));
+                System.out.print("Enter amount: ");
+                double amount = sc.nextDouble();
+                sc.nextLine();
+
+                expenses.add(new Expense(name, amount));
+                System.out.println("Expense added!");
+
+            } else if (choice == 2) {
+                System.out.println("\n===== Your Expenses =====");
+
+                if (expenses.isEmpty()) {
+                    System.out.println("No expenses found.");
+                } else {
+                    for (Expense e : expenses) {
+                        System.out.println("Expense: " + e.name + " | Amount: " + e.amount);
+                    }
+                }
+
+            } else if (choice == 3) {
+                double total = 0;
+                for (Expense e : expenses) {
+                    total += e.amount;
+                }
+                System.out.println("Total Expense: " + total);
+
+            } else if (choice == 4) {
+                System.out.println("Exiting... Thank you!");
+                break;
+
+            } else {
+                System.out.println("❌ Invalid choice! Try again.");
+            }
         }
 
-        // Display expenses
-        System.out.println("\n===== Your Expenses =====");
-        double total = 0;
-
-        for (Expense e : expenses) {
-            System.out.println("Expense: " + e.name + " | Amount: " + e.amount);
-            total += e.amount;
-        }
-
-        // Total
-        System.out.println("----------------------------");
-        System.out.println("Total Expense: " + total);
+        sc.close();
     }
 }
