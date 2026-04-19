@@ -3,10 +3,14 @@ import java.util.*;
 class Expense {
     String name;
     double amount;
+    String category;
+    String date;
 
-    Expense(String name, double amount) {
+    Expense(String name, double amount, String category, String date) {
         this.name = name;
         this.amount = amount;
+        this.category = category;
+        this.date = date;
     }
 }
 
@@ -35,8 +39,14 @@ public class Main {
                 double amount = sc.nextDouble();
                 sc.nextLine();
 
-                expenses.add(new Expense(name, amount));
-                System.out.println("Expense added!");
+                System.out.print("Enter category (Food/Travel/etc): ");
+                String category = sc.nextLine();
+
+                System.out.print("Enter date (DD-MM-YYYY): ");
+                String date = sc.nextLine();
+
+                expenses.add(new Expense(name, amount, category, date));
+                System.out.println(" Expense added!");
 
             } else if (choice == 2) {
                 System.out.println("\n===== Your Expenses =====");
@@ -45,7 +55,9 @@ public class Main {
                     System.out.println("No expenses found.");
                 } else {
                     for (Expense e : expenses) {
-                        System.out.println("Expense: " + e.name + " | Amount: " + e.amount);
+                        System.out.println("Name: " + e.name +" | Amount: " + e.amount +
+                            " | Category: " + e.category +" | Date: " + e.date
+                        );
                     }
                 }
 
