@@ -25,11 +25,13 @@ public class Main {
             System.out.println("1. Add Expense");
             System.out.println("2. View Expenses");
             System.out.println("3. Show Total");
-            System.out.println("4. Exit");
+            System.out.println("4. Delete Expense");
+            System.out.println("5. Edit Expense");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
-            sc.nextLine(); // clear buffer
+            sc.nextLine();
 
             if (choice == 1) {
                 System.out.print("Enter expense name: ");
@@ -39,7 +41,7 @@ public class Main {
                 double amount = sc.nextDouble();
                 sc.nextLine();
 
-                System.out.print("Enter category (Food/Travel/etc): ");
+                System.out.print("Enter category: ");
                 String category = sc.nextLine();
 
                 System.out.print("Enter date (DD-MM-YYYY): ");
@@ -49,15 +51,14 @@ public class Main {
                 System.out.println(" Expense added!");
 
             } else if (choice == 2) {
-                System.out.println("\n===== Your Expenses =====");
-
                 if (expenses.isEmpty()) {
                     System.out.println("No expenses found.");
                 } else {
-                    for (Expense e : expenses) {
-                        System.out.println("Name: " + e.name +" | Amount: " + e.amount +
-                            " | Category: " + e.category +" | Date: " + e.date
-                        );
+                    System.out.println("\n===== Your Expenses =====");
+                    for (int i = 0; i < expenses.size(); i++) {
+                        Expense e = expenses.get(i);
+                        System.out.println(i + ". " + e.name + " | " + e.amount +
+                                " | " + e.category + " | " + e.date);
                     }
                 }
 
@@ -69,11 +70,49 @@ public class Main {
                 System.out.println("Total Expense: " + total);
 
             } else if (choice == 4) {
+                System.out.print("Enter index to delete: ");
+                int index = sc.nextInt();
+                sc.nextLine();
+
+                if (index >= 0 && index < expenses.size()) {
+                    expenses.remove(index);
+                    System.out.println(" Expense deleted!");
+                } else {
+                    System.out.println(" Invalid index!");
+                }
+
+            } else if (choice == 5) {
+                System.out.print("Enter index to edit: ");
+                int index = sc.nextInt();
+                sc.nextLine();
+
+                if (index >= 0 && index < expenses.size()) {
+                    Expense e = expenses.get(index);
+
+                    System.out.print("Enter new name: ");
+                    e.name = sc.nextLine();
+
+                    System.out.print("Enter new amount: ");
+                    e.amount = sc.nextDouble();
+                    sc.nextLine();
+
+                    System.out.print("Enter new category: ");
+                    e.category = sc.nextLine();
+
+                    System.out.print("Enter new date: ");
+                    e.date = sc.nextLine();
+
+                    System.out.println("Expense updated!");
+                } else {
+                    System.out.println(" Invalid index!");
+                }
+
+            } else if (choice == 6) {
                 System.out.println("Exiting... Thank you!");
                 break;
 
             } else {
-                System.out.println("❌ Invalid choice! Try again.");
+                System.out.println(" Invalid choice!");
             }
         }
 
